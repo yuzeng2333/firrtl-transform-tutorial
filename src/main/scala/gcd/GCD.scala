@@ -9,26 +9,41 @@ import chisel3._
   * Subtracts the smaller from the larger until register y is zero.
   * value in register x is then the GCD
   */
+//class GCD extends Module {
+//  val io = IO(new Bundle {
+//    val x  = Input(UInt(16.W))
+//    val y  = Input(UInt(16.W))
+//    val opcode  = Input(UInt(2.W))
+//    val result  = Output(UInt(16.W))
+//  })
+//
+//  when(io.opcode === 1.U) {
+//    io.result := io.x + io.y 
+//  } .elsewhen (io.opcode === 2.U) {
+//    io.result := io.x & io.y
+//  } .elsewhen (io.opcode === 3.U) {
+//    io.result := io.x | io.y
+//  } .otherwise {
+//    io.result := io.x - io.y
+//  }
+//}
+
+
 class GCD extends Module {
   val io = IO(new Bundle {
-    val value1        = Input(UInt(16.W))
-    val value2        = Input(UInt(16.W))
-    val loadingValues = Input(Bool())
-    val outputGCD     = Output(UInt(16.W))
-    val outputValid   = Output(Bool())
+    val x  = Input(UInt(16.W))
+    val y  = Input(UInt(16.W))
+    val opcode  = Input(UInt(2.W))
+    val result  = Output(UInt(16.W))
   })
 
-  val x  = Reg(UInt())
-  val y  = Reg(UInt())
-
-  when(x > y) { x := x - y }
-    .otherwise { y := y - x }
-
-  when(io.loadingValues) {
-    x := io.value1
-    y := io.value2
+  when(io.opcode === 1.U) {
+    io.result := io.x + io.y 
+  } .elsewhen (io.opcode === 2.U) {
+    io.result := io.x & io.y
+  } .elsewhen (io.opcode === 3.U) {
+    io.result := io.x | io.y
+  } .otherwise {
+    io.result := io.x - io.y
   }
-
-  io.outputGCD := x
-  io.outputValid := y === 0.U
 }

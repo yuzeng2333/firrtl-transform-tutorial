@@ -3,6 +3,9 @@
 test:
 	sbt 'test:runMain gcd.GCDMain --backend-name verilator'
 
+try:
+	sbt 'test:runMain gcd.GCDMain --backend-name verilator -fct gcd.tools.ConstraintPropagation'
+
 test-partialize-connects:
 	sbt 'test:runMain gcd.GCDMain --backend-name verilator -fct gcd.tools.PartializeConnects'
 
@@ -18,3 +21,5 @@ test-resilient:
 test-resilient-errors:
 	sbt 'test:runMain gcd.GCDMain --backend-name verilator -fct gcd.tools.ResilientRegisterFlow -faf src/main/resources/gcd/ResilientRegisterAnnos.json  -faf src/main/resources/gcd/SoftErrorAnnos.json'
 
+ir:
+	sbt 'test:runMain gcd.GCD_top -fct gcd.tools.ConstraintPropagation'

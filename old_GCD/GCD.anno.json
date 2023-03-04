@@ -1,0 +1,33 @@
+[
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~GCD|GCD>io_result",
+    "sources":[
+      "~GCD|GCD>io_opcode",
+      "~GCD|GCD>io_x",
+      "~GCD|GCD>io_y"
+    ]
+  },
+  {
+    "class":"logger.LogLevelAnnotation",
+    "globalLogLevel":{
+      
+    }
+  },
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.VerilogEmitter"
+  },
+  {
+    "class":"firrtl.options.TargetDirAnnotation",
+    "directory":"."
+  },
+  {
+    "class":"firrtl.options.OutputAnnotationFileAnnotation",
+    "file":"GCD"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"."
+  }
+]

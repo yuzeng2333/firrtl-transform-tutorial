@@ -15,39 +15,15 @@ class GCDUnitTester(c: GCD) extends PeekPokeTester(c) {
     * @param b positive integer
     * @return the GCD of a and b
     */
-  def computeGcd(a: Int, b: Int): (Int, Int) = {
-    var x = a
-    var y = b
-    var depth = 1
-    while(y > 0 ) {
-      if (x > y) {
-        x -= y
-      }
-      else {
-        y -= x
-      }
-      depth += 1
-    }
-    (x, depth)
-  }
+
 
   private val gcd = c
 
-  for(i <- 1 to 40 by 3) {
-    for (j <- 1 to 40 by 7) {
-      poke(gcd.io.value1, i)
-      poke(gcd.io.value2, j)
-      poke(gcd.io.loadingValues, 1)
-      step(1)
-      poke(gcd.io.loadingValues, 0)
-
-      val (expected_gcd, steps) = computeGcd(i, j)
-
-      step(steps - 1) // -1 is because we step(1) already to toggle the enable
-      expect(gcd.io.outputGCD, expected_gcd)
-      expect(gcd.io.outputValid, 1)
-    }
-  }
+  poke(gcd.io.x, 3)
+  poke(gcd.io.y, 2)
+  poke(gcd.io.opcode, 1)
+  step(1)
+  expect(gcd.io.result, 5)
 }
 
 /**
